@@ -1,0 +1,44 @@
+# Visual Studio
+.vs/
+*.sln
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+*.user
+*.userprefs
+
+# IDE
+.vscode/
+.idea/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Unreal Engine build artifacts
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+
+# Plugins build artifacts
+Plugins/**/Binaries/*
+Plugins/**/Intermediate/*
+
+# Build outputs
+Build/*
+!Build/*/PakBlacklist*.txt
+!Build/**/*.ico
+
+# Precompiled assets
+SourceArt/**/*.png
+SourceArt/**/*.tga
+
+# Map built data
+*_BuiltData.uasset
+
+# Logs and temp
+*.log
+*.tmp
