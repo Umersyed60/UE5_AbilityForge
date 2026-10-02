@@ -4,6 +4,7 @@
 #include "AFCharacterBase.h"
 #include "Components/CapsuleComponent.h"
 #include "gameFramework/CharacterMovementComponent.h"
+#include "UE5_AbilityForge/GameplayAbilitySystem/AttributeSets/BasicAttributeSet.h"
 
 // Sets default values
 AAFCharacterBase::AAFCharacterBase()
@@ -34,6 +35,9 @@ AAFCharacterBase::AAFCharacterBase()
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 	GetCharacterMovement()->BrakingDecelerationFalling = 1500.f;
+
+	//Add the Basic Attribute Set
+	BasicAttributeSet = CreateDefaultSubobject<UBasicAttributeSet>(TEXT("BasicAttributeSet"));
 }
 
 // Called when the game starts or when spawned
