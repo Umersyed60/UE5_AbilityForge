@@ -15,6 +15,9 @@ class UE5_ABILITYFORGE_API UAFGameplayAbility : public UGameplayAbility
 	GENERATED_BODY()
 
 public:
+
+	UAFGameplayAbility();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	bool ShouldShowInAbilitiesBar = false;
 	
