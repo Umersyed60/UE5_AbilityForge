@@ -27,6 +27,12 @@ void UBasicAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallb
 
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute()) {
 		SetHealth(GetHealth());
+
+		if (Data.EffectSpec.Def->GetAssetTags().HasTag(FGameplayTag::RequestGameplayTag("Effects.HitReaction"))) {
+			FGameplayTagContainer HitReactionTagContainer;
+			HitReactionTagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("GameplayAbility.HitReaction")));
+			GetOwningAbilitySystemComponent()->TryActivateAbilitiesByTag(HitReactionTagContainer);
+		}
 	}
 
 	if (Data.EvaluatedData.Attribute == GetStaminaAttribute()) {
@@ -38,9 +44,11 @@ void UBasicAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute,
 {
 	Super::PreAttributeChange(Attribute, NewValue);
 
-	if (Attribute == GetHealthAttribute()) {
+	if (Attribute == GetHealthAttribute()) 
+	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxHealth());
-	}else if (Attribute == GetStaminaAttribute()) {
+	}else if (Attribute == GetStaminaAttribute()) 
+	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxStamina());
 	}
 }
