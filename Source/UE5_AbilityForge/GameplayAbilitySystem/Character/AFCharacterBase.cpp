@@ -48,6 +48,8 @@ void AAFCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	AbilitySystemComponent->RegisterGameplayTagEvent(FGameplayTag::RequestGameplayTag("State.Dead"))
+		.AddUObject(this, &AAFCharacterBase::OnDeadTagChanged);
 }
 
 
@@ -74,6 +76,25 @@ void AAFCharacterBase::OnRep_PlayerState()
 
 	if (AbilitySystemComponent) {
 		AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	}
+}
+
+void AAFCharacterBase::HandleDeath_Implementation()
+{
+	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetCharacterMovement()->DisableMovement();
+
+	FVector Impulse = GetActorForwardVector() * -20000;
+	Impulse.Z = 15000;
+	GetMesh()->AddImpulseAtLocation(Impulse, GetActorLocation());
+}
+
+void AAFCharacterBase::OnDeadTagChanged(const FGameplayTag CallbackTag, int32 NewCount)
+{
+	if (NewCount > 0) {
+		HandleDeath();
 	}
 }
 
