@@ -11,6 +11,8 @@ UBasicAttributeSet::UBasicAttributeSet() {
 	Stamina = 100.f;
 	MaxStamina = 100.f;
 	Damage = 0.f;
+	Shield = 0.f;
+	MaxShield = 100.f;
 }
 
 void UBasicAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -63,6 +65,10 @@ void UBasicAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute,
 	else if (Attribute == GetStaminaAttribute()) 
 	{
 		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxStamina());
+	}
+	else if (Attribute == GetShieldAttribute()) 
+	{
+		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxShield());
 	}
 }
 
