@@ -36,6 +36,10 @@ public:
 	FGameplayAttributeData MaxStamina;
 	ATTRIBUTE_ACCESSORS_BASIC(UBasicAttributeSet, MaxStamina);
 
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
+	FGameplayAttributeData Damage;
+	ATTRIBUTE_ACCESSORS_BASIC(UBasicAttributeSet, Damage);
+
 public:
 	UFUNCTION()
 	void OnRep_Health(const FGameplayAttributeData& OldValue) const {
