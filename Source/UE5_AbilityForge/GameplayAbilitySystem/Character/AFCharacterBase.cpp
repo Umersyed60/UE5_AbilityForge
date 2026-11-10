@@ -6,6 +6,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
 #include "UE5_AbilityForge/GameplayAbilitySystem/AttributeSets/BasicAttributeSet.h"
+#include "UE5_AbilityForge/GameplayAbilitySystem/AttributeSets/CombatAttributeSet.h"
 #include "UE5_AbilityForge/GameplayAbilitySystem/AFAbilitySystemComponent.h"
 
 
@@ -39,8 +40,9 @@ AAFCharacterBase::AAFCharacterBase()
 	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
 	GetCharacterMovement()->BrakingDecelerationFalling = 1500.f;
 
-	//Add the Basic Attribute Set
+	//Adding the Attribute Set
 	BasicAttributeSet = CreateDefaultSubobject<UBasicAttributeSet>(TEXT("BasicAttributeSet"));
+	CombatAttributeSet = CreateDefaultSubobject<UCombatAttributeSet>(TEXT("CombatAttributeSet"));
 }
 
 // Called when the game starts or when spawned
