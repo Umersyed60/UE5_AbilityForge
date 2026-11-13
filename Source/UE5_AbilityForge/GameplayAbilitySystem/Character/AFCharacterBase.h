@@ -24,6 +24,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
 	class UBasicAttributeSet* BasicAttributeSet;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AbilitySystem")
+	class UCombatAttributeSet* CombatAttributeSet;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "AbilitySystem")
 	bool bIsPlayingUBM = false;
 
