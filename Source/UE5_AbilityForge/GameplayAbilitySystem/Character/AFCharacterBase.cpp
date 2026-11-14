@@ -8,6 +8,7 @@
 #include "UE5_AbilityForge/GameplayAbilitySystem/AttributeSets/BasicAttributeSet.h"
 #include "UE5_AbilityForge/GameplayAbilitySystem/AttributeSets/CombatAttributeSet.h"
 #include "UE5_AbilityForge/GameplayAbilitySystem/AFAbilitySystemComponent.h"
+#include "UE5_AbilityForge/GameplayAbilitySystem/Abilities/AFGameplayAbility.h"
 
 
 // Sets default values
@@ -120,7 +121,14 @@ TArray<FGameplayAbilitySpecHandle> AAFCharacterBase::GrantAbilities(TArray<TSubc
 
 	TArray<FGameplayAbilitySpecHandle> AbilityHandles;
 	for (TSubclassOf<UGameplayAbility> Ability : AbilitiesToGrant) {
-		FGameplayAbilitySpecHandle SpecHandle = AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability, 1, -1, this));
+
+		int32 InputID = -1;
+		if (const UAFGameplayAbility* AFAbilityCDO = GetDefault<UAFGameplayAbility>(Ability))
+		{
+			InputID = static_cast<int32>(AFAbilityCDO->AbilityInputID);
+		}
+
+		FGameplayAbilitySpecHandle SpecHandle = AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability, 1, InputID, this));
 		AbilityHandles.Add(SpecHandle);
 	}
 
