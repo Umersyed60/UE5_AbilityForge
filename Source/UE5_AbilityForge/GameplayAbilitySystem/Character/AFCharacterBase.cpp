@@ -123,13 +123,20 @@ TArray<FGameplayAbilitySpecHandle> AAFCharacterBase::GrantAbilities(TArray<TSubc
 	for (TSubclassOf<UGameplayAbility> Ability : AbilitiesToGrant) {
 
 		int32 InputID = -1;
+		bool ShouldAutoActivate = false;
 		if (const UAFGameplayAbility* AFAbilityCDO = GetDefault<UAFGameplayAbility>(Ability))
 		{
 			InputID = static_cast<int32>(AFAbilityCDO->AbilityInputID);
+			ShouldAutoActivate = AFAbilityCDO->AutoActivateWhenGranted;
 		}
 
 		FGameplayAbilitySpecHandle SpecHandle = AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(Ability, 1, InputID, this));
 		AbilityHandles.Add(SpecHandle);
+
+		if (ShouldAutoActivate)
+		{
+			AbilitySystemComponent->TryActivateAbility(SpecHandle);
+		}
 	}
 
 	SendAbilitiesChangedEvent();
